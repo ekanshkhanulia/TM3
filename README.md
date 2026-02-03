@@ -1,3 +1,11 @@
+## Report Preview
+
+<p align="center">
+  <img src="assets/Screenshot%20(556).png" width="32%" alt="Report page 1">
+  <img src="assets/Screenshot%20(557).png" width="32%" alt="Report page 2">
+  <img src="assets/Screenshot%20(558).png" width="32%" alt="Report page 3">
+</p>
+
 # Sentence-Level Bias Detection in News
 
 This project studies sentence-level media bias and separates emotion-driven bias
