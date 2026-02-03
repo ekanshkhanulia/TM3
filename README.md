@@ -1,14 +1,22 @@
-# Text Mining Assignment 3
+# Sentence-Level Bias Detection in News
 
-Scripts for preprocessing, EDA, and modeling bias in news sentences.
+This project studies sentence-level media bias and separates emotion-driven bias
+from framing-driven bias. It compares two signals for perceived bias: emotional
+tone (sentiment-based features) and textual framing/content (TF-IDF features).
+By contrasting their predictions, it identifies sentences that appear biased
+through framing even when tone is neutral.
 
 ## Contents
 
-- `processed.py`: cleans raw CSV, aggregates annotations, writes `processed/sentences_processed.csv` and `results/eda_summary.json`.
-- `eda.py`: exploratory analysis and tables/plots on the raw dataset.
-- `baseline.py`: TF-IDF baselines (LogReg, Linear SVM, Naive Bayes) for binary bias.
+- `processed.py`: cleans raw CSV, aggregates annotations, writes
+  `processed/sentences_processed.csv` and `results/eda_summary.json`.
+- `eda.py`: event-wise label distribution, position bias summary,
+  and annotator pre-knowledge analysis.
+- `baseline.py`: TF-IDF baselines (LogReg, Linear SVM, Naive Bayes) using
+  conservative vs inclusive label mappings plus class-weighted variants.
 - `baselineSOTA.py`: RoBERTa baseline for inclusive binary labels.
-- `bias_intensity.py`: ridge regression for bias intensity with TF-IDF vs tone features.
+- `bias_intensity.py`: ridge regression for bias intensity with TF-IDF vs tone
+  features, plus a framing-proxy based on the prediction gap.
 
 ## Data
 
@@ -19,6 +27,12 @@ Generated outputs:
 - `processed/sentences_processed.csv`
 - `results/eda_summary.json`
 
+## Label mappings
+
+Binary bias is evaluated under two mappings:
+- Conservative: labels 1–2 -> 0 (not biased), 3–4 -> 1 (biased)
+- Inclusive: label 1 -> 0 (not biased), 2–4 -> 1 (biased)
+
 ## Usage
 
 Create the processed dataset:
@@ -27,14 +41,14 @@ Create the processed dataset:
 python processed.py --in_csv Sora_LREC2020_biasedsentences.csv --strip_html
 ```
 
-Run baselines:
+Run baselines (binary bias):
 
 ```bash
 python baseline.py
 python baselineSOTA.py
 ```
 
-Run bias intensity experiments:
+Run bias intensity and framing-proxy analysis:
 
 ```bash
 python bias_intensity.py
